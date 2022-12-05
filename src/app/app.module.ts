@@ -4,10 +4,13 @@ import { BarsModule } from './bars/bars.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { VideosComponent } from './videos/videos.component';
+import { NbaGamesComponent } from './nba-games/nba-games.component';
+import { ShareModule } from './share/share.module';
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [BarsModule, AppRoutingModule, CommonModule],
+  declarations: [AppComponent, VideosComponent, NbaGamesComponent],
+  imports: [BarsModule, AppRoutingModule, ShareModule],
   providers: [],
   bootstrap: [AppComponent],
 })
