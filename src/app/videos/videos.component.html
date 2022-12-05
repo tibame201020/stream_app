@@ -1,12 +1,13 @@
+<form [formGroup]="this.formGroup">
 <div class="container-fluid">
     <div class="row stickyhere">
         <div class="col">
-            keyword
+            <input formControlName="keyword" type="text" class="form-control" placeholder="keyword" aria-label="Default" aria-describedby="inputGroup-sizing-default">
         </div>
     </div>
 
     <div class="row">
-        <div class="col" *ngIf="!this.m3u8 && !this.videos.length">
+        <div class="col-9" *ngIf="!this.m3u8 && !this.videos.length">
             <div class="row">
                 <div *ngFor="let rankVideos of this.rankList" class="col-3">
                     <strong>{{rankVideos.category}}</strong>
@@ -18,16 +19,30 @@
             </div>
         </div>
 
-        <div class="col" *ngIf="!this.m3u8 && this.videos.length">
-            result
+        <div class="col-9" *ngIf="!this.m3u8 && this.videos.length">
+          <div class="row">
+            <div *ngFor="let video of this.videos" class="col-3">
+              <br>
+              <mat-card (click)="getChannel(video.url, video.name)" class="channelLink">
+  <mat-card-header>
+    <div mat-card-avatar style="background-image:url({{video.img}}); background-size: cover;"></div>
+    <mat-card-title>{{video.name}}</mat-card-title>
+  </mat-card-header>
+</mat-card>
+            </div>
+            </div>
             pages
         </div>
 
-        <div class="col" *ngIf="this.m3u8">
+        <div class="col-9" *ngIf="this.m3u8">
             <br>
-            <video id="sxmvideo" class="video-js" controls width="600" height="300" autoplay preload="auto">
-                <source [src]="this.m3u8" type="application/x-mpegURL" />
-            </video>
+        <div class="row stickyVideo">
+          <div class="col">
+                        <app-video-player [options]="this.options"
+            ></app-video-player>
+
+          </div>
+        </div>                       
         </div>
 
         <div class="col-3" *ngIf="this.channels.length">
@@ -62,3 +77,4 @@
 
 
 </div>
+</form>

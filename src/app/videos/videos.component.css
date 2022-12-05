@@ -1,15 +1,25 @@
 .stickyhere {
-    z-index: 999;
-    position: sticky;
-    top: 10%;
-    left: 0;
-    background-color: lightcyan;
-    border-color: lightcyan;
-    border-style: solid !important;
-    border-radius: 5px;
-    width: 50%;
+  z-index: 999;
+  position: sticky;
+  top: 10%;
+  left: 0;
+  background-color: lightcyan;
+  border-color: lightcyan;
+  border-style: solid !important;
+  border-radius: 5px;
+  width: 50%;
 }
 
-.channelLink, .videoLink{
-    cursor: pointer;
+.channelLink,
+.videoLink {
+  cursor: pointer;
+}
+
+.stickyVideo {
+  z-index: 999;
+  position: sticky;
+  top: 15%;
+  left: 2%;
+  border-radius: 5px;
+  width: 110%;
 }

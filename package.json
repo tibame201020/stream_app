@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-	"build_win": "electron-packager . WinApp --platform=win32 --arch=x64 --asar --overwrite"
+    "build_win": "electron-packager . WinApp --platform=win32 --arch=x64 --asar --overwrite"
   },
   "private": true,
   "dependencies": {
@@ -32,6 +32,7 @@
     "rxjs": "~7.5.0",
     "sweetalert2": "^11.5.1",
     "tslib": "^2.3.0",
+    "video.js": "^7.20.3",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
@@ -39,6 +40,7 @@
     "@angular/cli": "~14.2.2",
     "@angular/compiler-cli": "^14.2.0",
     "@types/jasmine": "~4.0.0",
+    "@types/video.js": "^7.3.50",
     "electron": "^21.2.2",
     "electron-builder": "^22.14.13",
     "electron-packager": "^17.1.1",
