@@ -36,9 +36,9 @@ export class VideosService {
     );
   }
 
-  watchGimyVideo(url: string): Observable<string> {
-    return this.http.post<string>(
-      environment.apiUrl + '/outer/watchGimyVideo',
+  watchGimyVideo(url: string): Observable<any> {
+    return this.http.post<any>(
+      environment.apiUrl + 'outer/watchGimyVideo',
       url
     );
   }
