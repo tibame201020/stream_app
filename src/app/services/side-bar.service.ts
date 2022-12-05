@@ -20,21 +20,6 @@ export class SideBarService {
     switch (true) {
       case path == '/home':
         return false;
-      case path == '/':
-        this.sidebar = DEPOSIT_SIDE_BAR;
-        return true;
-      case path.includes('/deposit'):
-        this.sidebar = DEPOSIT_SIDE_BAR;
-        return false;
-      case path.includes('/calc'):
-        this.sidebar = CALC_SIDE_BAR;
-        return false;
-      case path.includes('/calendar'):
-        this.sidebar = CALENDAR_SIDE_BAR;
-        return false;
-      case path.includes('/setting'):
-        this.sidebar = SETTING_SIDE_BAR;
-        return false;
       default:
         return false;
     }
