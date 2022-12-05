@@ -1,1 +1,80 @@
-<p>videos works!</p>
+<form [formGroup]="this.formGroup">
+<div class="container-fluid">
+    <div class="row stickyhere">
+        <div class="col">
+            <input formControlName="keyword" type="text" class="form-control" placeholder="keyword" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-9" *ngIf="!this.m3u8 && !this.videos.length">
+            <div class="row">
+                <div *ngFor="let rankVideos of this.rankList" class="col-3">
+                    <strong>{{rankVideos.category}}</strong>
+                    <br>
+                    <pre
+                        *ngFor="let item of rankVideos.gimyVideos"><a class="channelLink" (click)="getChannel(item.url, item.name)">{{item.name}}</a></pre>
+                </div>
+                <hr>
+            </div>
+        </div>
+
+        <div class="col-9" *ngIf="!this.m3u8 && this.videos.length">
+          <div class="row">
+            <div *ngFor="let video of this.videos" class="col-3">
+              <br>
+              <mat-card (click)="getChannel(video.url, video.name)" class="channelLink">
+  <mat-card-header>
+    <div mat-card-avatar style="background-image:url({{video.img}}); background-size: cover;"></div>
+    <mat-card-title>{{video.name}}</mat-card-title>
+  </mat-card-header>
+</mat-card>
+            </div>
+            </div>
+            pages
+        </div>
+
+        <div class="col-9" *ngIf="this.m3u8">
+            <br>
+        <div class="row stickyVideo">
+          <div class="col">
+                        <app-video-player [options]="this.options"
+            ></app-video-player>
+
+          </div>
+        </div>                       
+        </div>
+
+        <div class="col-3" *ngIf="this.channels.length">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <strong>{{this.formGroup.value.channelTitle}}</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12" *ngFor="let channel of this.channels">
+                        <hr>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col">
+                                    <pre>{{channel.name}}</pre>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4 videoLink" *ngFor="let item of channel.videoLinks"
+                                    (click)="getM3U8(item.link)">
+                                    <mat-card>{{item.name}}</mat-card>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</form>
