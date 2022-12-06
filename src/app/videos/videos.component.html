@@ -8,6 +8,20 @@
             <div class="col-2" *ngIf="this.m3u8">
                 <button type="button" class="btn btn-light" (click)="backToVideoList()">Back</button>
             </div>
+            <div class="col-12">
+                <div class="row" *ngIf="this.totalpages > 1">
+                    <div class="col">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12">
+                                    <app-page-pagination [length]="this.totalpages*20" (newItemEvent)="getCurrentPage($event)">
+                                    </app-page-pagination>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="row">
@@ -35,22 +49,6 @@
                                 <mat-card-title>{{video.name}}</mat-card-title>
                             </mat-card-header>
                         </mat-card>
-                    </div>
-                </div>
-                <div class="row" *ngIf="this.totalpages > 1">
-                    <div class="col">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-12">
-                                    <ul class="pagination">
-                                        <li><a>«</a></li>
-                                        <!-- <li *ngFor="let item of [].constructor(this.totalpages); let i = index"><a>{{i + 1}}</a></li> -->
-                                        
-                                        <li><a>»</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

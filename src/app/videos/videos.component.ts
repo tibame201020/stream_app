@@ -26,11 +26,10 @@ export class VideosComponent implements OnInit {
     link: this.m3u8,
     type: 'application/x-mpegURL',
   };
-  totalpages=20;
+  totalpages=1;
 
   public formGroup: FormGroup = this.formBuilder.group({
-    keyword: [''],
-    nowpage:[1]
+    keyword: ['']
   });
 
   constructor(
@@ -61,7 +60,6 @@ export class VideosComponent implements OnInit {
             }
             this.videos = res.gimyVideos;
             this.totalpages = res.pagesHtml;
-            console.log(res)
           });
       }
     });
@@ -111,5 +109,17 @@ export class VideosComponent implements OnInit {
   backToVideoList() {
     this.m3u8 = "";
     this.activeLink = '';
+  }
+
+  getCurrentPage(page: number) {
+    this.videosService.getListByPageUrlGimy(page).subscribe(
+      res => {
+        if(res) {
+          this.m3u8 = '';
+          this.activeLink = '';
+          this.videos=res;
+        }
+      }
+    )
   }
 }
