@@ -39,8 +39,8 @@ export class VideoPlayerComponent implements OnInit {
           },
         ],
         fluid: true,
-        autoplay: true,
-        muted: true
+        autoplay: this.options.autoplay,
+        muted: this.options.muted
       };
       this.player = videojs('HTML5Video', options);
     }

@@ -105,12 +105,12 @@ ul.drop-down-menu a {
 }
 
 ul.drop-down-menu a:hover {
-  background-color: #ef5c28;
+  background-color: lightskyblue;
   color: #fff;
 }
 
 ul.drop-down-menu li:hover > a {
-  background-color: #ef5c28;
+  background-color: lightskyblue;
   color: #fff;
 }
 
