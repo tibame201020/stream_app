@@ -22,10 +22,10 @@ export class VideosService {
     );
   }
 
-  getListByPageUrlGimy(url: string): Observable<GimyVideo[]> {
+  getListByPageUrlGimy(page: number): Observable<GimyVideo[]> {
     return this.http.post<GimyVideo[]>(
       environment.apiUrl + '/outer/getListByPageUrlGimy',
-      url
+      page
     );
   }
 

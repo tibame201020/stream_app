@@ -8,9 +8,10 @@ import { VideosComponent } from './videos/videos.component';
 import { NbaGamesComponent } from './nba-games/nba-games.component';
 import { ShareModule } from './share/share.module';
 import { VideoPlayerComponent } from './video-player/video-player.component';
+import { PagePaginationComponent } from './page-pagination/page-pagination.component';
 
 @NgModule({
-  declarations: [AppComponent, VideosComponent, NbaGamesComponent, VideoPlayerComponent],
+  declarations: [AppComponent, VideosComponent, NbaGamesComponent, VideoPlayerComponent, PagePaginationComponent],
   imports: [BarsModule, AppRoutingModule, ShareModule],
   providers: [],
   bootstrap: [AppComponent],
