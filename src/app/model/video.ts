@@ -1,6 +1,6 @@
 export interface SearchResult {
   firstHtml: string;
-  pagesHtml: string;
+  pagesHtml: number;
   gimyVideos: GimyVideo[];
 }
 

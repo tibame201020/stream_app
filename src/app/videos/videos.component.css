@@ -3,23 +3,66 @@
   position: sticky;
   top: 10%;
   left: 0;
-  background-color: lightcyan;
-  border-color: lightcyan;
-  border-style: solid !important;
+
   border-radius: 5px;
-  width: 50%;
+  width: 70%;
 }
 
 .channelLink,
 .videoLink {
   cursor: pointer;
+  text-align: center;
 }
 
 .stickyVideo {
-  z-index: 999;
+  z-index: 0;
   position: sticky;
-  top: 15%;
-  left: 2%;
+  top: 18%;
+  left: 0%;
   border-radius: 5px;
   width: 110%;
+}
+
+.active {
+  background-color: lightcoral;
+  cursor: default;
+}
+
+.stickyChannel {
+  z-index: 9999;
+  position: sticky;
+  top: 10%;
+  right: 0%;
+}
+.mat_tab_content{
+  overflow: auto;
+  overflow-y: overlay
+}
+
+ul.pagination {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+ul.pagination li {
+  display: inline;
+}
+
+ul.pagination li a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+ul.pagination li a.active {
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 5px;
+}
+
+ul.pagination li a:hover:not(.active) {
+  background-color: #ddd;
 }

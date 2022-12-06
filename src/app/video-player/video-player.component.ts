@@ -39,10 +39,11 @@ export class VideoPlayerComponent implements OnInit {
           },
         ],
         fluid: true,
+        autoplay: true,
+        muted: true
       };
       this.player = videojs('HTML5Video', options);
     }
-    videojs('HTML5Video').play();
   }
 
   ngOnDestroy() {
