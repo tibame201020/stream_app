@@ -28,6 +28,13 @@ export interface GimyVideoDetail {
 }
 
 export interface GimyPageReq {
-  keyword:string;
-  page:number;
+  keyword: string;
+  page: number;
+}
+
+export interface GimyHistory {
+  watchTime: Date;
+  historyStr: string;
+  channelUrl: string;
+  videoUrl: string;
 }
