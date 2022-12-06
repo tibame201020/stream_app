@@ -26,3 +26,8 @@ export interface VideoLink {
 export interface GimyVideoDetail {
   channels: Channel[];
 }
+
+export interface GimyPageReq {
+  keyword:string;
+  page:number;
+}

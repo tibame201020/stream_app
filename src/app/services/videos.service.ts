@@ -7,6 +7,7 @@ import {
   GimyVideo,
   GimyVideoDetail,
   GimyRankVideo,
+  GimyPageReq,
 } from '../model/video';
 
 @Injectable({
@@ -22,10 +23,10 @@ export class VideosService {
     );
   }
 
-  getListByPageUrlGimy(page: number): Observable<GimyVideo[]> {
+  getListByPageUrlGimy(gimyPageReq: GimyPageReq): Observable<GimyVideo[]> {
     return this.http.post<GimyVideo[]>(
       environment.apiUrl + '/outer/getListByPageUrlGimy',
-      page
+      gimyPageReq
     );
   }
 
