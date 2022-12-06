@@ -6,6 +6,7 @@ import {
   SearchResult,
   Channel,
   GimyRankVideo,
+  GimyHistory,
 } from '../model/video';
 import Swal from 'sweetalert2';
 
@@ -20,6 +21,8 @@ export class VideosComponent implements OnInit {
   channels: Channel[] = [];
   rankList: GimyRankVideo[] = [];
   channelTitle = '';
+  channelUrl = '';
+  videoTitle = '';
   m3u8 = '';
   activeLink = '';
   options = {
@@ -27,6 +30,7 @@ export class VideosComponent implements OnInit {
     type: 'application/x-mpegURL',
   };
   totalpages = 1;
+  gimyHistories: GimyHistory[] = [];
 
   public formGroup: FormGroup = this.formBuilder.group({
     keyword: [''],
@@ -38,6 +42,7 @@ export class VideosComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getHistory();
     if (!this.m3u8) {
       this.getRankList();
     }
@@ -73,12 +78,13 @@ export class VideosComponent implements OnInit {
 
   getChannel(url: string, channelTitle: string) {
     this.channelTitle = channelTitle;
+    this.channelUrl = url;
     this.videosService
       .getGimyVideoDetail(url)
       .subscribe((res) => (this.channels = res.channels));
   }
 
-  getM3U8(url: string) {
+  getM3U8(url: string, videoStr: string) {
     if (this.activeLink == url) {
       return;
     }
@@ -87,10 +93,12 @@ export class VideosComponent implements OnInit {
       if (res.url.includes('.m3u8')) {
         this.m3u8 = res.url;
         this.activeLink = url;
+        this.videoTitle = videoStr;
         this.options = {
           link: this.m3u8,
           type: 'application/x-mpegURL',
         };
+        this.addHistory();
       } else {
         Swal.fire({
           icon: 'error',
@@ -120,5 +128,30 @@ export class VideosComponent implements OnInit {
           this.videos = res;
         }
       });
+  }
+
+  getHistory() {
+    this.videosService.getGimyHistory().subscribe((res) => {
+      this.gimyHistories = res.reverse();
+    });
+  }
+
+  addHistory() {
+    let historyStr = this.channelTitle + '_#' + this.videoTitle;
+    let channelUrl = this.channelUrl;
+    let videoUrl = this.activeLink;
+    this.videosService
+      .addGimyHistory({
+        watchTime: new Date(),
+        historyStr: historyStr,
+        channelUrl: channelUrl,
+        videoUrl: videoUrl,
+      })
+      .subscribe((res) => this.getHistory());
+  }
+
+  toHistory(history: GimyHistory) {
+    this.getChannel(history.channelUrl, history.historyStr.split('_#')[0]);
+    this.getM3U8(history.videoUrl, history.historyStr.split('_#')[1]);
   }
 }

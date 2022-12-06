@@ -1,9 +1,21 @@
 <form [formGroup]="this.formGroup">
     <div class="container-fluid">
         <div class="row stickyhere">
-            <div class="col-10">
+            <div class="col-8">
                 <input formControlName="keyword" type="text" class="form-control" placeholder="keyword"
                     aria-label="Default" aria-describedby="inputGroup-sizing-default" />
+            </div>
+            <div class="col-2" *ngIf="this.gimyHistories.length">
+              <ul class="drop-down-menu">
+              <li>
+		<a>History</a>
+		<ul>
+			<li *ngFor="let gimyHistory of this.gimyHistories">
+				<a (click)="toHistory(gimyHistory)" class="videoLink">{{gimyHistory.historyStr}}</a>
+			</li>
+		</ul>
+	</li>
+  </ul>
             </div>
             <div class="col-2" *ngIf="this.m3u8">
                 <button type="button" class="btn btn-light" (click)="backToVideoList()">Back</button>
@@ -81,7 +93,7 @@
                                                 <div class="col-11">
                                                     <div class="row mat_tab_content">
                                                         <div class="col-3" *ngFor="let item of channel.videoLinks">
-                                                            <mat-card class="videoLink" (click)="getM3U8(item.link)"
+                                                            <mat-card class="videoLink" (click)="getM3U8(item.link, item.name)"
                                                                 [ngClass]="{'active': this.activeLink == item.link}">
                                                                 {{item.name}}</mat-card>
                                                             <br>

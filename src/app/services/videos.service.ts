@@ -8,6 +8,7 @@ import {
   GimyVideoDetail,
   GimyRankVideo,
   GimyPageReq,
+  GimyHistory,
 } from '../model/video';
 
 @Injectable({
@@ -47,6 +48,19 @@ export class VideosService {
   getGimyRankList(): Observable<GimyRankVideo[]> {
     return this.http.get<GimyRankVideo[]>(
       environment.apiUrl + '/outer/getGimyRankList'
+    );
+  }
+
+  addGimyHistory(gimyHistory: GimyHistory): Observable<any> {
+    return this.http.post<any>(
+      environment.apiUrl + 'outer/addGimyHistory',
+      gimyHistory
+    );
+  }
+
+  getGimyHistory(): Observable<GimyHistory[]> {
+    return this.http.get<GimyHistory[]>(
+      environment.apiUrl + '/outer/getGimyHistory'
     );
   }
 }
