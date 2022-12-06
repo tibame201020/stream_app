@@ -21,15 +21,15 @@ export class VideosComponent implements OnInit {
   rankList: GimyRankVideo[] = [];
   channelTitle = '';
   m3u8 = '';
-  activeLink='';
+  activeLink = '';
   options = {
     link: this.m3u8,
     type: 'application/x-mpegURL',
   };
-  totalpages=1;
+  totalpages = 1;
 
   public formGroup: FormGroup = this.formBuilder.group({
-    keyword: ['']
+    keyword: [''],
   });
 
   constructor(
@@ -43,7 +43,6 @@ export class VideosComponent implements OnInit {
     }
 
     this.formGroup.valueChanges.subscribe((value) => {
-      console.log('value = ' + JSON.stringify(value))
       if (!value.keyword) {
         this.m3u8 = '';
         this.activeLink = '';
@@ -52,15 +51,13 @@ export class VideosComponent implements OnInit {
       } else {
         this.m3u8 = '';
         this.activeLink = '';
-        this.videosService
-          .searchByKeyword(value.keyword)
-          .subscribe((res) => {
-            if (!res.gimyVideos) {
-              return;
-            }
-            this.videos = res.gimyVideos;
-            this.totalpages = res.pagesHtml;
-          });
+        this.videosService.searchByKeyword(value.keyword).subscribe((res) => {
+          if (!res.gimyVideos) {
+            return;
+          }
+          this.videos = res.gimyVideos;
+          this.totalpages = res.pagesHtml;
+        });
       }
     });
   }
@@ -82,7 +79,6 @@ export class VideosComponent implements OnInit {
   }
 
   getM3U8(url: string) {
-
     if (this.activeLink == url) {
       return;
     }
@@ -100,26 +96,29 @@ export class VideosComponent implements OnInit {
           icon: 'error',
           title: '請嘗試更換撥放源...',
           text: '目前版本不支援m3u8以外格式!',
-          timer: 3500
-        })
+          timer: 3500,
+        });
       }
     });
   }
 
   backToVideoList() {
-    this.m3u8 = "";
+    this.m3u8 = '';
     this.activeLink = '';
   }
 
   getCurrentPage(page: number) {
-    this.videosService.getListByPageUrlGimy(page).subscribe(
-      res => {
-        if(res) {
+    this.videosService
+      .getListByPageUrlGimy({
+        keyword: this.formGroup.value.keyword,
+        page: page,
+      })
+      .subscribe((res) => {
+        if (res) {
           this.m3u8 = '';
           this.activeLink = '';
-          this.videos=res;
+          this.videos = res;
         }
-      }
-    )
+      });
   }
 }

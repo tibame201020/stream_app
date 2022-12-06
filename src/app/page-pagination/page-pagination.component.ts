@@ -1,14 +1,20 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  Output,
+  EventEmitter,
+  SimpleChanges,
+} from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-page-pagination',
   templateUrl: './page-pagination.component.html',
-  styleUrls: ['./page-pagination.component.css']
+  styleUrls: ['./page-pagination.component.css'],
 })
 export class PagePaginationComponent implements OnInit {
-
-  @Input()length!:number;
+  @Input() length!: number;
   pageSize = 20;
   pageIndex = 0;
 
@@ -30,7 +36,8 @@ export class PagePaginationComponent implements OnInit {
     this.newItemEvent.emit(e.pageIndex + 1);
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+  ngOnChanges(changes: SimpleChanges) {
+    this.pageIndex = 0;
   }
-
 }
