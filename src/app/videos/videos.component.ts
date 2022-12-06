@@ -7,6 +7,7 @@ import {
   Channel,
   GimyRankVideo,
 } from '../model/video';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-videos',
@@ -20,13 +21,16 @@ export class VideosComponent implements OnInit {
   rankList: GimyRankVideo[] = [];
   channelTitle = '';
   m3u8 = '';
+  activeLink='';
   options = {
     link: this.m3u8,
     type: 'application/x-mpegURL',
   };
+  totalpages=20;
 
   public formGroup: FormGroup = this.formBuilder.group({
     keyword: [''],
+    nowpage:[1]
   });
 
   constructor(
@@ -36,27 +40,40 @@ export class VideosComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.m3u8) {
-      this.videosService
-        .getGimyRankList()
-        .subscribe((res) => (this.rankList = res));
+      this.getRankList();
     }
 
     this.formGroup.valueChanges.subscribe((value) => {
-      if (this.formGroup.value.keyword) {
+      console.log('value = ' + JSON.stringify(value))
+      if (!value.keyword) {
         this.m3u8 = '';
-        this.videosService
-          .searchByKeyword(this.formGroup.value.keyword)
-          .subscribe((res) => {
-            this.videos = res.gimyVideos;
-            console.log(this.videos);
-          });
+        this.activeLink = '';
+        this.getRankList();
+        return;
       } else {
-        this.videos = [];
+        this.m3u8 = '';
+        this.activeLink = '';
         this.videosService
-          .getGimyRankList()
-          .subscribe((res) => (this.rankList = res));
+          .searchByKeyword(value.keyword)
+          .subscribe((res) => {
+            if (!res.gimyVideos) {
+              return;
+            }
+            this.videos = res.gimyVideos;
+            this.totalpages = res.pagesHtml;
+            console.log(res)
+          });
       }
     });
+  }
+
+  getRankList() {
+    this.m3u8 = '';
+    this.activeLink = '';
+    this.videos = [];
+    this.videosService
+      .getGimyRankList()
+      .subscribe((res) => (this.rankList = res));
   }
 
   getChannel(url: string, channelTitle: string) {
@@ -67,16 +84,32 @@ export class VideosComponent implements OnInit {
   }
 
   getM3U8(url: string) {
+
+    if (this.activeLink == url) {
+      return;
+    }
+
     this.videosService.watchGimyVideo(url).subscribe((res) => {
       if (res.url.includes('.m3u8')) {
         this.m3u8 = res.url;
+        this.activeLink = url;
         this.options = {
           link: this.m3u8,
           type: 'application/x-mpegURL',
         };
       } else {
-        alert('sorry');
+        Swal.fire({
+          icon: 'error',
+          title: '請嘗試更換撥放源...',
+          text: '目前版本不支援m3u8以外格式!',
+          timer: 3500
+        })
       }
     });
+  }
+
+  backToVideoList() {
+    this.m3u8 = "";
+    this.activeLink = '';
   }
 }
