@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class VideoPlayerService {
+  public autoplay: boolean = true;
+  public muted: boolean = false;
 
-  public autoplay:boolean=false;
-  public muted:boolean=true;
-
-  constructor() { }
+  constructor() {}
 }

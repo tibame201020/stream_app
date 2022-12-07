@@ -5,7 +5,8 @@ import {
   SimpleChanges,
   OnDestroy,
 } from '@angular/core';
-import videojs from 'video.js';
+import { VideoPlayerService } from '../services/video-player.service';
+declare var Clappr: any;
 
 @Component({
   selector: 'app-video-player',
@@ -13,40 +14,32 @@ import videojs from 'video.js';
   styleUrls: ['./video-player.component.css'],
 })
 export class VideoPlayerComponent implements OnInit {
-  public video?: HTMLVideoElement;
   public player: any;
-  @Input() options!: any;
+  @Input() m3u8!: string;
 
-  constructor() {}
+  constructor(private videoPlayerService: VideoPlayerService) {}
 
   ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.setOption();
+    this.initPlayer();
   }
 
-  setOption() {
-    if (this.player) {
-      videojs('HTML5Video').src([
-        { type: this.options.type, src: this.options.link },
-      ]);
-    } else {
-      let options = {
-        sources: [
-          {
-            src: this.options.link,
-            type: this.options.type,
-          },
-        ],
-        fluid: true,
-        autoplay: this.options.autoplay,
-        muted: this.options.muted
-      };
-      this.player = videojs('HTML5Video', options);
-    }
-  }
+  ngOnDestroy() {}
 
-  ngOnDestroy() {
-    videojs('HTML5Video').dispose();
+  initPlayer() {
+    new Clappr.Player({
+      source: this.m3u8,
+      shakaConfiguration: {
+        streaming: {
+          rebufferingGoal: 50,
+        },
+      },
+      height: '100%',
+      width: '100%',
+      autoPlay: this.videoPlayerService.autoplay,
+      mute: this.videoPlayerService.muted,
+      parentId: '#player',
+    });
   }
 }
