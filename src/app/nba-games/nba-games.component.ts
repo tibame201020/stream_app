@@ -10,26 +10,26 @@ import { NbaStreamPlayerComponent } from '../nba-stream-player/nba-stream-player
 @Component({
   selector: 'app-nba-games',
   templateUrl: './nba-games.component.html',
-  styleUrls: ['./nba-games.component.css']
+  styleUrls: ['./nba-games.component.css'],
 })
 export class NbaGamesComponent implements OnInit {
-
   games: NbaGame[] = [];
   channels: Channel[] = [];
   channelAwayTeam = '';
   channelHomeTeam = '';
 
-  constructor(private nbaStreamService: NbaStreamService, public videoPlayerService: VideoPlayerService, public dialog: MatDialog) { }
+  constructor(
+    private nbaStreamService: NbaStreamService,
+    public videoPlayerService: VideoPlayerService,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.getGames();
-    this.openStreamLinkin()
   }
 
   getGames() {
-    this.nbaStreamService.getGames().subscribe(
-      res => this.games = res
-    )
+    this.nbaStreamService.getGames().subscribe((res) => (this.games = res));
   }
 
   getChannel(game: NbaGame) {
@@ -43,59 +43,56 @@ export class NbaGamesComponent implements OnInit {
         icon: 'info',
         title: 'the game was already finished',
         showConfirmButton: false,
-        timer: 1000
-      })
-
+        timer: 1000,
+      });
       return;
     }
     this.channelAwayTeam = game.awayTeamName;
     this.channelHomeTeam = game.homeTeamName;
-    this.nbaStreamService.getStreamChannel(game.streamUrl).subscribe(
-      res => this.channels = res
-    )
+    this.nbaStreamService
+      .getStreamChannel(game.streamUrl)
+      .subscribe((res) => (this.channels = res));
   }
 
   getStreamByChannel(channel: Channel) {
-    console.log(channel);
-    this.nbaStreamService.getStreamByClickChannel(channel.url).subscribe(
-      res => {
+    this.nbaStreamService
+      .getStreamByClickChannel(channel.url)
+      .subscribe((res) => {
         if (!res.isM3u8) {
-          this.openStreamLinkin()
+          this.openStreamLinkin(res.url);
           return;
         }
         let m3u8 = res.url;
         if (!res.url.includes('.m3u8')) {
           m3u8 = window.atob(res.url);
         }
-        this.openStreamPlayer()
-      }
-    )
+        console.log(m3u8);
+        this.openStreamPlayer(m3u8);
+      });
   }
 
-  openStreamLinkin() {
+  openStreamLinkin(url: string) {
     const dialogRef = this.dialog.open(NbaStreamLinkinComponent, {
       width: '90rem',
       minHeight: '35rem',
       maxHeight: '60rem',
-      data: 'https://github.com/tibame201020/asset-frontend-app/blob/main/src/app/share/calendar-event-form/calendar-event-form.component.ts',
+      data: url,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      
+      this.getGames();
     });
   }
 
-  openStreamPlayer() {
+  openStreamPlayer(m3u8: string) {
     const dialogRef = this.dialog.open(NbaStreamPlayerComponent, {
-      width: '90rem',
-      minHeight: '35rem',
-      maxHeight: '60rem',
-      data: '',
+      width: '80rem',
+      height: '35rem',
+      data: m3u8,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-
+      this.getGames();
     });
   }
-
 }
