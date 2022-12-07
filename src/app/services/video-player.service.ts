@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class VideoPlayerService {
   public autoplay: boolean = true;
-  public muted: boolean = false;
+  public muted: boolean = true;
 
   constructor() {}
 }

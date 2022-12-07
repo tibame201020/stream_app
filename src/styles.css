@@ -1,6 +1,5 @@
 /* Add application styles & imports to this file! */
 @import url("assets/css/bootstrap.min.css");
-/* @import url('assets/css/font-awesome.min.css'); */
+/* @import url("assets/css/font-awesome.min.css"); */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import url("assets/css/noto_sans_tc.css");
-@import "~video.js/dist/video-js.css";
