@@ -26,12 +26,7 @@ export class VideosComponent implements OnInit {
   videoTitle = '';
   m3u8 = '';
   activeLink = '';
-  options = {
-    autoplay: this.videoPlayerService.autoplay,
-    muted: this.videoPlayerService.muted,
-    link: this.m3u8,
-    type: 'application/x-mpegURL',
-  };
+
   totalpages = 1;
   gimyHistories: GimyHistory[] = [];
 
@@ -98,12 +93,6 @@ export class VideosComponent implements OnInit {
         this.m3u8 = res.url;
         this.activeLink = url;
         this.videoTitle = videoStr;
-        this.options = {
-          autoplay: this.videoPlayerService.autoplay,
-          muted: this.videoPlayerService.muted,
-          link: this.m3u8,
-          type: 'application/x-mpegURL',
-        };
         this.addHistory();
       } else {
         Swal.fire({

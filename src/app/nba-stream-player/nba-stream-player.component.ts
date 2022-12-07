@@ -27,7 +27,7 @@ export class NbaStreamPlayerComponent implements OnInit {
       source: this.data,
       shakaConfiguration: {
         streaming: {
-          rebufferingGoal: 15,
+          rebufferingGoal: 50,
         },
       },
       height: '100%',
