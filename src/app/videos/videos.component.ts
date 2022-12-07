@@ -27,8 +27,8 @@ export class VideosComponent implements OnInit {
   m3u8 = '';
   activeLink = '';
   options = {
-    autoplay:this.videoPlayerService.autoplay,
-    muted:this.videoPlayerService.muted,
+    autoplay: this.videoPlayerService.autoplay,
+    muted: this.videoPlayerService.muted,
     link: this.m3u8,
     type: 'application/x-mpegURL',
   };
@@ -42,7 +42,7 @@ export class VideosComponent implements OnInit {
   constructor(
     public videosService: VideosService,
     private formBuilder: FormBuilder,
-    public videoPlayerService:VideoPlayerService
+    public videoPlayerService: VideoPlayerService
   ) {}
 
   ngOnInit(): void {
@@ -99,8 +99,8 @@ export class VideosComponent implements OnInit {
         this.activeLink = url;
         this.videoTitle = videoStr;
         this.options = {
-          autoplay:this.videoPlayerService.autoplay,
-          muted:this.videoPlayerService.muted,
+          autoplay: this.videoPlayerService.autoplay,
+          muted: this.videoPlayerService.muted,
           link: this.m3u8,
           type: 'application/x-mpegURL',
         };
