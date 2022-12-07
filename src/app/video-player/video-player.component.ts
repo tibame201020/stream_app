@@ -22,13 +22,17 @@ export class VideoPlayerComponent implements OnInit {
   ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
+    if (this.player) {
+      this.player.load(this.m3u8, null, true);
+      return;
+    }
     this.initPlayer();
   }
 
   ngOnDestroy() {}
 
   initPlayer() {
-    new Clappr.Player({
+    this.player = new Clappr.Player({
       source: this.m3u8,
       shakaConfiguration: {
         streaming: {
