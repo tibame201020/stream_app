@@ -59,30 +59,37 @@
     </div>
   </div>
 
-  <div class="row" *ngIf="!searchListBlockStatus()">
+  <div class="row">
     <div class="col-8" *ngIf="!this.m3u8 && !this.videos.length">
-      <div class="row">
+      <div class="row" *ngIf="!searchListBlockStatus()">
         <div *ngFor="let rankVideos of this.rankList" class="col-3">
           <strong>{{rankVideos.category}}</strong>
           <hr>
           <pre [ngClass]="{'active': this.channelTitle == item.name}"
-            *ngFor="let item of rankVideos.gimyVideos"><a class="channelLink" (click)="getChannel(item.url, item.name)">{{item.name}}</a></pre>
+            *ngFor="let item of rankVideos.gimyVideos" class="channelLink" (click)="getChannel(item.url, item.name)">{{item.name}}</pre>
         </div>
         <hr>
       </div>
     </div>
 
     <div class="col-8" *ngIf="!this.m3u8 && this.videos.length">
-      <div class="row">
+      <br>
+      <div class="row" *ngIf="!searchListBlockStatus()">
         <div *ngFor="let video of this.videos" class="col-3">
-          <br>
-          <mat-card (click)="getChannel(video.url, video.name)" class="channelLink"
-            [ngClass]="{'active': this.channelTitle == video.name}">
-            <mat-card-header>
-              <div mat-card-avatar style="background-image:url({{video.img}}); background-size: cover;"></div>
-              <mat-card-title>{{video.name}}</mat-card-title>
-            </mat-card-header>
+          <mat-card (click)="getChannel(video.url, video.name)" class="channelLink channelLinkCard"
+            [ngClass]="{'active': this.channelTitle == video.name}" style="height:12rem">
+              <div class="container">
+                <div class="row">
+                  <div class="col-12 pic" style="height:9.5rem">
+                    <img src={{video.img}} alt={{video.name}} style="max-width: 100%;max-height: 100%;" />
+                    <div class="col-12">
+                      <pre>{{video.name}}</pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
           </mat-card>
+          <br>
         </div>
       </div>
     </div>
@@ -115,7 +122,7 @@
                       <div class="col-11">
                         <div class="row mat_tab_content">
                           <div class="col-3" *ngFor="let item of channel.videoLinks">
-                            <mat-card class="videoLink" (click)="getM3U8(item.link, item.name)"
+                            <mat-card class="videoLink bubble-float-bottom button" (click)="getM3U8(item.link, item.name)"
                               [ngClass]="{'active': this.activeLink == item.link}">
                               {{item.name}}</mat-card>
                             <br>

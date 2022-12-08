@@ -1,3 +1,71 @@
+/* css hover */
+/* Default styles for the demo buttons */
+.button {
+  margin: 0.4em;
+  padding: 1em;
+  cursor: pointer;
+  background: #ececec;
+  text-decoration: none;
+  color: #666;
+}
+.bubble-float-bottom {
+  display: inline-block;
+  position: relative;
+  transition-duration: 0.3s;
+  transition-property: transform;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+}
+.bubble-float-bottom:before {
+  pointer-events: none;
+  position: absolute;
+  z-index: -1;
+  content: "";
+  left: calc(50% - 10px);
+  bottom: 0;
+  border-style: solid;
+  border-width: 10px 10px 0 10px;
+  border-color: #ececec transparent transparent transparent;
+  transition-duration: 0.3s;
+  transition-property: bottom;
+}
+.bubble-float-bottom:hover {
+  transform: translateY(-5px) translateZ(0);
+}
+.bubble-float-bottom:hover:before {
+  bottom: -10px;
+}
+
+.channelLinkCard {
+  transition: 0.3s;
+  background-color: transparent;
+}
+.channelLinkCard:hover {
+  background-color: whitesmoke;
+  transform: scale(1.8);
+  z-index: 2;
+  box-shadow: 2px #000;
+}
+
+pre.channelLink {
+  text-align: center;
+  transition: 0.3s;
+  background-color: transparent;
+}
+
+pre.channelLink:hover {
+  text-align: center;
+  background-color: transparent;
+  transform: scale(2);
+  z-index: 2;
+  box-shadow: 1px #000;
+  color: #c35817;
+  font-family: "Helvetica", "Arial", "LiHei Pro", "黑體-繁", "微軟正黑體",
+    sans-serif;
+}
+
+/* orginal */
 .stickyhere {
   z-index: 999;
   position: sticky;

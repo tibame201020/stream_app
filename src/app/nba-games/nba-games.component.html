@@ -3,7 +3,7 @@
         <div class="col-8">
             <div class="row">
                 <div class="col-3" *ngFor="let game of this.games">
-                    <mat-card (click)="getChannel(game)" style="height: 10rem; text-align: center;"
+                    <mat-card (click)="getChannel(game)" style="height: 10rem; text-align: center;" class="button bubble-float-bottom"
                         matTooltip="{{game.awayTeamName}} v.s. {{game.homeTeamName}}">
                         <div class="container">
                             <div class="row">
