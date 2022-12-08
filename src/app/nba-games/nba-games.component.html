@@ -33,18 +33,18 @@
                 <div class="row">
                     <div class="col">
                         <strong>{{this.channelAwayTeam}} v.s. {{this.channelHomeTeam}}</strong>
+                        <hr>
                     </div>
                 </div>
                 <div class="row" *ngIf="this.channels.length">
-                    <br>
                     <div class="col-12" *ngFor="let channel of this.channels">
                         <mat-card (click)="getStreamByChannel(channel)">
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col-5">
                                         <pre>{{channel.name}}</pre>
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-7">
                                         <pre>{{channel.speed}}</pre>
                                     </div>
                                 </div>
@@ -56,9 +56,8 @@
 
                 <div class="row">
                     <div class="col" *ngIf="!this.channels.length">
-                        <br>
-                        <pre style="color: red;">the {{this.channelAwayTeam}} v.s. {{this.channelHomeTeam}} stream url non-responsive,</pre>
-                        <pre style="color: red;">maybe too early?</pre>
+                      <br>
+                        <span style="color: red;">{{this.streamNonResText}}</span>
                     </div>
                 </div>
             </div>

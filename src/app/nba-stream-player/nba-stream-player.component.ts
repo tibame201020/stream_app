@@ -18,16 +18,23 @@ export class NbaStreamPlayerComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: string
   ) {}
 
+  player: any;
+
   ngOnInit(): void {
     this.initPlayer();
+
+    setTimeout(() => {
+      this.player.load(this.data);
+      console.log('try load');
+    }, 3000);
   }
 
   initPlayer() {
-    new Clappr.Player({
+    this.player = new Clappr.Player({
       source: this.data,
       shakaConfiguration: {
         streaming: {
-          rebufferingGoal: 50,
+          rebufferingGoal: 15,
         },
       },
       height: '100%',

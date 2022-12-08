@@ -1,4 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import {
   MatDialog,
   MatDialogRef,
@@ -14,16 +15,13 @@ import { NbaStreamService } from '../services/nba-stream.service';
 export class NbaStreamLinkinComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: string,
-    private nbaStreamService: NbaStreamService
+    private nbaStreamService: NbaStreamService,
+    private sanitizer: DomSanitizer
   ) {}
 
-  html: string = '';
+  html: any;
 
   ngOnInit(): void {
-    window.open(
-      this.data,
-      '_blank',
-      'top=500,left=500,frame=false,nodeIntegration=no'
-    );
+    this.html = this.sanitizer.bypassSecurityTrustResourceUrl(this.data);
   }
 }
