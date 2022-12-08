@@ -43,7 +43,7 @@
     <div class="col-2" *ngIf="this.m3u8">
       <button type="button" class="btn btn-light" (click)="backToVideoList()">Back</button>
     </div>
-    <div class="col-12">
+    <div class="col-12" *ngIf="!this.m3u8">
       <div class="row" *ngIf="this.totalpages > 1">
         <div class="col">
           <div class="container">
@@ -97,7 +97,7 @@
       </div>
     </div>
 
-    <div class="col-4" *ngIf="this.channels.length">
+    <div class="col-4" *ngIf="this.channelTitle">
       <div class="row stickyChannel">
         <div class="col">
           <div class="row">
