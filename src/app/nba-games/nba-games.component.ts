@@ -79,7 +79,7 @@ export class NbaGamesComponent implements OnInit {
               window.open(
                 res.url,
                 '_blank',
-                'top=500,left=500,frame=false,nodeIntegration=no'
+                'frame=false,nodeIntegration=no,height=700, width=1600'
               );
             }
           });
