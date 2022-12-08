@@ -59,7 +59,7 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row" *ngIf="!searchListBlockStatus()">
     <div class="col-8" *ngIf="!this.m3u8 && !this.videos.length">
       <div class="row">
         <div *ngFor="let rankVideos of this.rankList" class="col-3">
@@ -106,7 +106,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-12">
+            <div class="col-12" *ngIf="!this.searchChannelStatus">
               <mat-tab-group>
                 <mat-tab label={{channel.name}} *ngFor="let channel of this.channels">
                   <br>
@@ -129,9 +129,36 @@
               </mat-tab-group>
 
             </div>
+            <div class="col-12" *ngIf="this.searchChannelStatus">
+              <div class="box loading-css">
+                <br>
+                <br>
+                <app-loading></app-loading>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="loading-stream" *ngIf="this.searchListStatus">
+  <div class="loading-container">
+    <div class="box loading-css">
+      <br>
+      <br>
+      <app-loading></app-loading>
+    </div>
+  </div>
+</div>
+
+<div class="loading-stream" *ngIf="this.getM3u8Status">
+  <div class="loading-container">
+    <div class="box loading-css">
+      <br>
+      <br>
+      <app-loading></app-loading>
     </div>
   </div>
 </div>

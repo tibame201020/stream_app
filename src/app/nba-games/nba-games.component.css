@@ -1,10 +1,10 @@
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.loading-css{
-    overflow: hidden;
-    height: 10rem;
+.loading-css {
+  overflow: hidden;
+  height: 10rem;
 }
