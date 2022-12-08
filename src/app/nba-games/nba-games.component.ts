@@ -19,11 +19,14 @@ export class NbaGamesComponent implements OnInit {
   channelHomeTeam = '';
   streamNonResText = '';
 
+  loadChannelStatus: number = 0;
+  loadStreamStatus: number = 0;
+
   constructor(
     private nbaStreamService: NbaStreamService,
     public videoPlayerService: VideoPlayerService,
     public dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getGames();
@@ -49,10 +52,13 @@ export class NbaGamesComponent implements OnInit {
       });
       return;
     }
+    this.loadChannelStatus = 1;
+
     this.streamNonResText = '';
     this.channelAwayTeam = game.awayTeamName;
     this.channelHomeTeam = game.homeTeamName;
     this.nbaStreamService.getStreamChannel(game.streamUrl).subscribe((res) => {
+      this.loadChannelStatus = 2;
       if (res.length) {
         this.channels = res;
         return;
@@ -66,9 +72,11 @@ export class NbaGamesComponent implements OnInit {
   }
 
   getStreamByChannel(channel: Channel) {
+    this.loadStreamStatus = 1;
     this.nbaStreamService
       .getStreamByClickChannel(channel.url)
       .subscribe((res) => {
+        this.loadStreamStatus = 2;
         if (!res.isM3u8) {
           Swal.fire({
             title:
@@ -77,6 +85,7 @@ export class NbaGamesComponent implements OnInit {
             confirmButtonText: 'confirm',
           }).then((result) => {
             if (result.isConfirmed) {
+              this.loadStreamStatus = 0;
               window.open(
                 res.url,
                 '_blank',
@@ -90,7 +99,7 @@ export class NbaGamesComponent implements OnInit {
         if (!res.url.includes('.m3u8')) {
           m3u8 = window.atob(res.url);
         }
-        console.log(m3u8);
+        this.loadStreamStatus = 0;
         this.openStreamPlayer(m3u8);
       });
   }
@@ -118,5 +127,12 @@ export class NbaGamesComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       this.getGames();
     });
+  }
+
+  getLoadStreamStatus() {
+    if (this.loadStreamStatus ==0 || this.loadStreamStatus == 2) {
+      return true;
+    }
+    return false;
   }
 }

@@ -11,9 +11,10 @@ import { VideoPlayerComponent } from './video-player/video-player.component';
 import { PagePaginationComponent } from './page-pagination/page-pagination.component';
 import { NbaStreamPlayerComponent } from './nba-stream-player/nba-stream-player.component';
 import { NbaStreamLinkinComponent } from './nba-stream-linkin/nba-stream-linkin.component';
+import { LoadingComponent } from './loading/loading.component';
 
 @NgModule({
-  declarations: [AppComponent, VideosComponent, NbaGamesComponent, VideoPlayerComponent, PagePaginationComponent, NbaStreamPlayerComponent, NbaStreamLinkinComponent],
+  declarations: [AppComponent, VideosComponent, NbaGamesComponent, VideoPlayerComponent, PagePaginationComponent, NbaStreamPlayerComponent, NbaStreamLinkinComponent, LoadingComponent],
   imports: [BarsModule, AppRoutingModule, ShareModule],
   providers: [],
   bootstrap: [AppComponent],
