@@ -22,26 +22,26 @@ export class NbaStreamPlayerComponent implements OnInit {
 
   ngOnInit(): void {
     this.initPlayer();
-
-    setTimeout(() => {
-      this.player.load(this.data);
-      console.log('try load');
-    }, 3000);
   }
 
   initPlayer() {
     this.player = new Clappr.Player({
-      source: this.data,
+      source: this.spearate(this.data),
       shakaConfiguration: {
         streaming: {
-          rebufferingGoal: 15,
+          rebufferingGoal: 2,
         },
       },
       height: '100%',
       width: '100%',
       autoPlay: this.videoPlayerService.autoplay,
       mute: this.videoPlayerService.muted,
+      preload: true,
       parentId: '#player',
     });
+  }
+
+  spearate(url: string) {
+    return url.replace(/^\"|\"$/g, '');
   }
 }

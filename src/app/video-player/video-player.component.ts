@@ -41,6 +41,7 @@ export class VideoPlayerComponent implements OnInit {
       },
       height: '100%',
       width: '100%',
+      preload: true,
       autoPlay: this.videoPlayerService.autoplay,
       mute: this.videoPlayerService.muted,
       parentId: '#player',
