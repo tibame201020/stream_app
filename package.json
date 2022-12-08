@@ -39,7 +39,6 @@
     "@angular/cli": "~14.2.2",
     "@angular/compiler-cli": "^14.2.0",
     "@types/jasmine": "~4.0.0",
-    "@types/video.js": "^7.3.50",
     "electron": "^21.2.2",
     "electron-builder": "^22.14.13",
     "electron-packager": "^17.1.1",

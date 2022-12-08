@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="getLoadStreamStatus()">
     <div class="row">
         <div class="col-8">
             <div class="row">
@@ -36,6 +36,12 @@
                         <hr>
                     </div>
                 </div>
+                <div class="row" *ngIf="this.loadChannelStatus == 1">
+                    <div class="col loading-css">
+                        <app-loading></app-loading>
+                    </div>
+                </div>
+
                 <div class="row" *ngIf="this.channels.length">
                     <div class="col-12" *ngFor="let channel of this.channels">
                         <mat-card (click)="getStreamByChannel(channel)">
@@ -54,13 +60,22 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col" *ngIf="!this.channels.length">
+                <div class="row" *ngIf="!this.channels.length">
+                    <div class="col">
                       <br>
                         <span style="color: red;">{{this.streamNonResText}}</span>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="loading-stream" *ngIf="!getLoadStreamStatus()">
+    <div class="container">
+        <div class="box loading-css">
+            <pre style="text-align: center;">m3u8 parsing...</pre>
+            <app-loading></app-loading>
         </div>
     </div>
 </div>
