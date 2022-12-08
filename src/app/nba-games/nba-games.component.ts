@@ -71,7 +71,8 @@ export class NbaGamesComponent implements OnInit {
       .subscribe((res) => {
         if (!res.isM3u8) {
           Swal.fire({
-            title: 'this will open new window to extern link, continue?',
+            title:
+              'this will open new window to <span style="color:red">external link</span>, continue?',
             showCancelButton: true,
             confirmButtonText: 'confirm',
           }).then((result) => {
