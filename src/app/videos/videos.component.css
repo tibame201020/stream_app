@@ -144,3 +144,14 @@ ul.drop-down-menu ul {
 ul.drop-down-menu li:hover > ul {
   display: block;
 }
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-css {
+  overflow: hidden;
+  height: 10rem;
+}

@@ -30,6 +30,10 @@ export class VideosComponent implements OnInit {
   totalpages = 1;
   gimyHistories: GimyHistory[] = [];
 
+  searchListStatus: boolean = false;
+  searchChannelStatus: boolean = false;
+  getM3u8Status: boolean = false;
+
   public formGroup: FormGroup = this.formBuilder.group({
     keyword: [''],
   });
@@ -38,7 +42,7 @@ export class VideosComponent implements OnInit {
     public videosService: VideosService,
     private formBuilder: FormBuilder,
     public videoPlayerService: VideoPlayerService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getHistory();
@@ -53,9 +57,11 @@ export class VideosComponent implements OnInit {
         this.getRankList();
         return;
       } else {
+        this.searchListStatus = true;
         this.m3u8 = '';
         this.activeLink = '';
         this.videosService.searchByKeyword(value.keyword).subscribe((res) => {
+          this.searchListStatus = false;
           if (!res.gimyVideos) {
             return;
           }
@@ -67,20 +73,28 @@ export class VideosComponent implements OnInit {
   }
 
   getRankList() {
+    this.searchListStatus = true;
     this.m3u8 = '';
     this.activeLink = '';
     this.videos = [];
     this.videosService
       .getGimyRankList()
-      .subscribe((res) => (this.rankList = res));
+      .subscribe((res) => {
+        this.searchListStatus = false;
+        this.rankList = res;
+      });
   }
 
   getChannel(url: string, channelTitle: string) {
+    this.searchChannelStatus = true;
     this.channelTitle = channelTitle;
     this.channelUrl = url;
     this.videosService
       .getGimyVideoDetail(url)
-      .subscribe((res) => (this.channels = res.channels));
+      .subscribe((res) => {
+        this.searchChannelStatus = false;
+        this.channels = res.channels
+      });
   }
 
   getM3U8(url: string, videoStr: string) {
@@ -88,7 +102,10 @@ export class VideosComponent implements OnInit {
       return;
     }
 
+    this.getM3u8Status = true;
+
     this.videosService.watchGimyVideo(url).subscribe((res) => {
+      this.getM3u8Status = false;
       if (res.url.includes('.m3u8')) {
         this.m3u8 = res.url;
         this.activeLink = url;
@@ -108,15 +125,20 @@ export class VideosComponent implements OnInit {
   backToVideoList() {
     this.m3u8 = '';
     this.activeLink = '';
+    this.searchListStatus = false;
+    this.searchChannelStatus = false;
+    this.getM3u8Status = false;
   }
 
   getCurrentPage(page: number) {
+    this.searchListStatus = true;
     this.videosService
       .getListByPageUrlGimy({
         keyword: this.formGroup.value.keyword,
         page: page,
       })
       .subscribe((res) => {
+        this.searchListStatus = false;
         if (res) {
           this.m3u8 = '';
           this.activeLink = '';
@@ -148,5 +170,9 @@ export class VideosComponent implements OnInit {
   toHistory(history: GimyHistory) {
     this.getChannel(history.channelUrl, history.historyStr.split('_#')[0]);
     this.getM3U8(history.videoUrl, history.historyStr.split('_#')[1]);
+  }
+
+  searchListBlockStatus () {
+    return (this.searchListStatus || this.getM3u8Status)
   }
 }

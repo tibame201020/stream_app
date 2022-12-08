@@ -26,14 +26,18 @@ export class NbaGamesComponent implements OnInit {
     private nbaStreamService: NbaStreamService,
     public videoPlayerService: VideoPlayerService,
     public dialog: MatDialog
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getGames();
   }
 
   getGames() {
-    this.nbaStreamService.getGames().subscribe((res) => (this.games = res));
+    this.loadStreamStatus = 1;
+    this.nbaStreamService.getGames().subscribe((res) => {
+      this.loadStreamStatus = 0;
+      this.games = res;
+    });
   }
 
   getChannel(game: NbaGame) {
@@ -130,7 +134,7 @@ export class NbaGamesComponent implements OnInit {
   }
 
   getLoadStreamStatus() {
-    if (this.loadStreamStatus ==0 || this.loadStreamStatus == 2) {
+    if (this.loadStreamStatus == 0 || this.loadStreamStatus == 2) {
       return true;
     }
     return false;
