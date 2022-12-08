@@ -17,6 +17,7 @@ export class NbaGamesComponent implements OnInit {
   channels: Channel[] = [];
   channelAwayTeam = '';
   channelHomeTeam = '';
+  streamNonResText = '';
 
   constructor(
     private nbaStreamService: NbaStreamService,
@@ -37,6 +38,7 @@ export class NbaGamesComponent implements OnInit {
       this.channelAwayTeam = '';
       this.channelHomeTeam = '';
       this.channels = [];
+      this.streamNonResText = '';
 
       Swal.fire({
         position: 'center',
@@ -47,11 +49,20 @@ export class NbaGamesComponent implements OnInit {
       });
       return;
     }
+    this.streamNonResText = '';
     this.channelAwayTeam = game.awayTeamName;
     this.channelHomeTeam = game.homeTeamName;
-    this.nbaStreamService
-      .getStreamChannel(game.streamUrl)
-      .subscribe((res) => (this.channels = res));
+    this.nbaStreamService.getStreamChannel(game.streamUrl).subscribe((res) => {
+      if (res.length) {
+        this.channels = res;
+        return;
+      }
+      this.streamNonResText =
+        this.channelAwayTeam +
+        ' v.s. ' +
+        this.channelHomeTeam +
+        ' stream url non-responsive, maybe too early?';
+    });
   }
 
   getStreamByChannel(channel: Channel) {
@@ -59,7 +70,19 @@ export class NbaGamesComponent implements OnInit {
       .getStreamByClickChannel(channel.url)
       .subscribe((res) => {
         if (!res.isM3u8) {
-          this.openStreamLinkin(res.url);
+          Swal.fire({
+            title: 'this will open new window to extern link, continue?',
+            showCancelButton: true,
+            confirmButtonText: 'confirm',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.open(
+                res.url,
+                '_blank',
+                'top=500,left=500,frame=false,nodeIntegration=no'
+              );
+            }
+          });
           return;
         }
         let m3u8 = res.url;
