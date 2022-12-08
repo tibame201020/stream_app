@@ -27,17 +27,22 @@ export class NbaStreamPlayerComponent implements OnInit {
   initPlayer() {
     this.player = new Clappr.Player({
       source: this.spearate(this.data),
-      shakaConfiguration: {
-        streaming: {
-          rebufferingGoal: 2,
-        },
-      },
       height: '100%',
       width: '100%',
       autoPlay: this.videoPlayerService.autoplay,
       mute: this.videoPlayerService.muted,
       preload: true,
       parentId: '#player',
+      playback: {
+        hlsjsConfig: {
+          maxBufferSize: 0,
+          maxBufferLength: 10,
+          liveSyncDurationCount: 10,
+          p2pConfig: {
+            live: true,
+          },
+        },
+      },
     });
   }
 
