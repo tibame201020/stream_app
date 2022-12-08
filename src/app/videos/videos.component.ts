@@ -98,9 +98,7 @@ export class VideosComponent implements OnInit {
     if (this.activeLink == url) {
       return;
     }
-
     this.getM3u8Status = true;
-
     this.videosService.watchGimyVideo(url).subscribe((res) => {
       this.getM3u8Status = false;
       if (res.url.includes('.m3u8')) {
