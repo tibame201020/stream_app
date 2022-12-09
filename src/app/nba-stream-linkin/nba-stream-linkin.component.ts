@@ -22,6 +22,8 @@ export class NbaStreamLinkinComponent implements OnInit {
   html: any;
 
   ngOnInit(): void {
+    console.log(this.data);
+
     this.html = this.sanitizer.bypassSecurityTrustResourceUrl(this.data);
   }
 }

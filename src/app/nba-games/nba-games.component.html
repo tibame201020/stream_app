@@ -76,7 +76,12 @@
 
                 <div class="row" *ngIf="this.channels.length">
                     <div class="col-12" *ngFor="let channel of this.channels">
-                        <mat-card (click)="getStreamByChannel(channel)">
+                        <mat-card 
+                        (click)="getStreamByChannel(channel)" 
+                        class="channelLinkCard" 
+                        [ngClass]="{'recommand': channel.name == 'Weak_Spell'}"
+                        matTooltip="{{channel.name == 'Weak_Spell'?'recommand' : 'external website'}}"
+                        >
                             <div class="container">
                                 <div class="row">
                                     <div class="col-5">

@@ -77,7 +77,7 @@ export class NbaGamesComponent implements OnInit {
   }
 
   getStreamByChannel(channel: Channel) {
-
+    console.log(channel);
     if (!this.videoPlayerService.isTryM3u8Stream) {
       this.getStreamToExternal(channel.url);
       return;
@@ -88,7 +88,6 @@ export class NbaGamesComponent implements OnInit {
       .getStreamByClickChannel(channel.url)
       .subscribe((res) => {
         this.loadStreamStatus = 2;
-        console.log(res);
         if (!res.isM3u8) {
           Swal.fire({
             title:
@@ -107,42 +106,35 @@ export class NbaGamesComponent implements OnInit {
           });
           return;
         }
-        let m3u8 = res.url;
-        if (!res.url.includes('.m3u8')) {
-          m3u8 = window.atob(this.spearate(res.url));
-        }
-        console.log(m3u8);
+
         this.loadStreamStatus = 0;
-        this.openStreamPlayer(this.spearate(m3u8));
+        this.openStreamLinkin(res.url);
       });
   }
 
-
-  getStreamToExternal(url:string) {
+  getStreamToExternal(url: string) {
     this.loadStreamStatus = 1;
-    this.nbaStreamService
-      .getStreamToExternal(url)
-      .subscribe((res) => {
-        this.loadStreamStatus = 2;
-        if (!res.isM3u8) {
-          Swal.fire({
-            title:
-              'this will open new window to <span style="color:red">external link</span>, continue?',
-            showCancelButton: true,
-            confirmButtonText: 'confirm',
-          }).then((result) => {
-            if (result.isConfirmed) {
-              this.loadStreamStatus = 0;
-              window.open(
-                res.url,
-                '_blank',
-                'frame=false,nodeIntegration=no,height=700, width=1600'
-              );
-            }
-          });
-          return;
-        }
-      });
+    this.nbaStreamService.getStreamToExternal(url).subscribe((res) => {
+      this.loadStreamStatus = 2;
+      if (!res.isM3u8) {
+        Swal.fire({
+          title:
+            'this will open new window to <span style="color:red">external link</span>, continue?',
+          showCancelButton: true,
+          confirmButtonText: 'confirm',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.loadStreamStatus = 0;
+            window.open(
+              res.url,
+              '_blank',
+              'frame=false,nodeIntegration=no,height=700, width=1600'
+            );
+          }
+        });
+        return;
+      }
+    });
   }
 
   openStreamLinkin(url: string) {
