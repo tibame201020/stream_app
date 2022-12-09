@@ -57,6 +57,7 @@ export class NbaGamesComponent implements OnInit {
       return;
     }
     this.loadChannelStatus = 1;
+    this.channels = [];
 
     this.streamNonResText = '';
     this.channelAwayTeam = game.awayTeamName;
@@ -81,6 +82,7 @@ export class NbaGamesComponent implements OnInit {
       .getStreamByClickChannel(channel.url)
       .subscribe((res) => {
         this.loadStreamStatus = 2;
+        console.log(res);
         if (!res.isM3u8) {
           Swal.fire({
             title:
@@ -101,10 +103,11 @@ export class NbaGamesComponent implements OnInit {
         }
         let m3u8 = res.url;
         if (!res.url.includes('.m3u8')) {
-          m3u8 = window.atob(res.url);
+          m3u8 = window.atob(this.spearate(res.url));
         }
+        console.log(m3u8);
         this.loadStreamStatus = 0;
-        this.openStreamPlayer(m3u8);
+        this.openStreamPlayer(this.spearate(m3u8));
       });
   }
 
@@ -138,5 +141,9 @@ export class NbaGamesComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  spearate(url: string) {
+    return url.replace(/^\"|\"$/g, '');
   }
 }

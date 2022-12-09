@@ -1,9 +1,10 @@
-<div class="container-fluid" *ngIf="getLoadStreamStatus()">
+<div class="container-fluid">
     <div class="row">
         <div class="col-8">
-            <div class="row">
+            <div class="row" *ngIf="getLoadStreamStatus()">
                 <div class="col-3" *ngFor="let game of this.games">
-                    <mat-card (click)="getChannel(game)" style="height: 10rem; text-align: center;" class="button bubble-float-bottom"
+                    <mat-card (click)="getChannel(game)" style="height: 10rem; text-align: center;"
+                        class="button bubble-float-bottom"
                         matTooltip="{{game.awayTeamName}} v.s. {{game.homeTeamName}}">
                         <div class="container">
                             <div class="row">
@@ -25,7 +26,19 @@
                     </mat-card>
                     <br>
                 </div>
-
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="loading-stream" *ngIf="!getLoadStreamStatus()">
+                        <div class="loading-container">
+                            <div class="box loading-css">
+                                <br>
+                                <br>
+                                <app-loading></app-loading>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-4" *ngIf="this.channelHomeTeam">
@@ -62,21 +75,11 @@
 
                 <div class="row" *ngIf="!this.channels.length">
                     <div class="col">
-                      <br>
+                        <br>
                         <span style="color: red;">{{this.streamNonResText}}</span>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-
-<div class="loading-stream" *ngIf="!getLoadStreamStatus()">
-    <div class="loading-container">
-        <div class="box loading-css">
-            <br>
-            <br>
-            <app-loading></app-loading>
         </div>
     </div>
 </div>

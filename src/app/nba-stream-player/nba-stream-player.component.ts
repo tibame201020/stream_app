@@ -26,7 +26,7 @@ export class NbaStreamPlayerComponent implements OnInit {
 
   initPlayer() {
     this.player = new Clappr.Player({
-      source: this.spearate(this.data),
+      source: this.data,
       height: '100%',
       width: '100%',
       autoPlay: this.videoPlayerService.autoplay,
@@ -44,9 +44,5 @@ export class NbaStreamPlayerComponent implements OnInit {
         },
       },
     });
-  }
-
-  spearate(url: string) {
-    return url.replace(/^\"|\"$/g, '');
   }
 }
