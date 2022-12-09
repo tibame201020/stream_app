@@ -44,9 +44,28 @@
         <div class="col-4" *ngIf="this.channelHomeTeam">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col">
+                    <div class="col-6">
                         <strong>{{this.channelAwayTeam}} v.s. {{this.channelHomeTeam}}</strong>
-                        <hr>
+                    </div>
+                    <div class="col-6">
+                        <ul class="drop-down-menu">
+                            <li>
+                                <a>loader config</a>
+                                <ul>
+                                    <li>
+                                        <a>
+                                            <mat-slide-toggle  [(ngModel)]="this.videoPlayerService.isTryM3u8Stream">try to load stream</mat-slide-toggle>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a>
+                                            <mat-slide-toggle [(ngModel)]="this.videoPlayerService.muted">muted
+                                            </mat-slide-toggle>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
                 </div>
                 <div class="row" *ngIf="this.loadChannelStatus == 1">
