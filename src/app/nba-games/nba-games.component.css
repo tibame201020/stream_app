@@ -1,3 +1,11 @@
+.recommand {
+  background-color: aquamarine;
+}
+
+.channelLinkCard {
+  cursor: pointer;
+}
+
 .loading-container {
   display: flex;
   justify-content: center;
@@ -29,11 +37,11 @@ ul.drop-down-menu li {
   border-right: #ccc 1px solid;
 }
 
-ul.drop-down-menu>li:last-child {
+ul.drop-down-menu > li:last-child {
   border-right: none;
 }
 
-ul.drop-down-menu>li {
+ul.drop-down-menu > li {
   float: left;
 }
 
@@ -51,7 +59,7 @@ ul.drop-down-menu a:hover {
   color: #fff;
 }
 
-ul.drop-down-menu li:hover>a {
+ul.drop-down-menu li:hover > a {
   background-color: lightslategrey;
   color: #fff;
 }
@@ -83,7 +91,7 @@ ul.drop-down-menu ul {
   display: none;
 }
 
-ul.drop-down-menu li:hover>ul {
+ul.drop-down-menu li:hover > ul {
   display: block;
 }
 

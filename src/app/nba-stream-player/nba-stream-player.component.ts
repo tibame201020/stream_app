@@ -33,7 +33,6 @@ export class NbaStreamPlayerComponent implements OnInit {
       width: '100%',
       autoPlay: this.videoPlayerService.autoplay,
       mute: this.videoPlayerService.muted,
-      plugins: [CDNByeClapprPlugin, LevelSelector],
       preload: true,
       parentId: '#player',
       playback: {

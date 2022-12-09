@@ -1,4 +1,14 @@
 iframe {
-  height: fit-content;
-  width: fit-content;
+    height: 100%;
+    width: 100%;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.item {
+    height: 50rem;
+    width: 85rem;
 }
