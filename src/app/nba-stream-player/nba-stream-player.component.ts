@@ -6,6 +6,8 @@ import {
 } from '@angular/material/dialog';
 import { VideoPlayerService } from '../services/video-player.service';
 declare var Clappr: any;
+declare var CDNByeClapprPlugin: any;
+declare var LevelSelector: any;
 
 @Component({
   selector: 'app-nba-stream-player',
@@ -26,11 +28,12 @@ export class NbaStreamPlayerComponent implements OnInit {
 
   initPlayer() {
     this.player = new Clappr.Player({
-      source: this.data,
+      source: this.spearate(this.data),
       height: '100%',
       width: '100%',
       autoPlay: this.videoPlayerService.autoplay,
       mute: this.videoPlayerService.muted,
+      plugins: [CDNByeClapprPlugin, LevelSelector],
       preload: true,
       parentId: '#player',
       playback: {
@@ -44,5 +47,9 @@ export class NbaStreamPlayerComponent implements OnInit {
         },
       },
     });
+  }
+
+  spearate(url: string) {
+    return url.replace(/^\"|\"$/g, '');
   }
 }

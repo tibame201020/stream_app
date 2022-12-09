@@ -35,6 +35,13 @@ export class NbaStreamService {
     );
   }
 
+  getStreamToExternal(channelUrl: string): Observable<any> {
+    return this.http.post<any>(
+      environment.apiUrl + 'outer/getStreamToExternal',
+      channelUrl
+    );
+  }
+
   readHtmlStr(url:string):Observable<any> {
     return this.http.post<any>(environment.apiUrl + 'outer/readHtmlStr', url);
   }
